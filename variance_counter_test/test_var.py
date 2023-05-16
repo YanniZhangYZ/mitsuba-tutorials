@@ -27,9 +27,12 @@ def get_ones(a, loss):
 
 def get_grad_gard2_count(a, loss):
     dr.backward(loss, flags=dr.ADFlag.BackPropVarianceCounter | dr.ADFlag.ClearVertices)
+    g = dr.graphviz_ad()
+    g.view()
     grad = dr.grad(a)
     grad2 = dr.grad2(a)
     counter = dr.counter(a)
+    dr.set_grad(a, 0)
     return grad, grad2, counter
 
 
@@ -57,6 +60,7 @@ def assert_backprop(a, loss, expected_grad, expected_grad2, expected_counter):
 
 def assert_variance(a, loss, expected_var):
     grad, grad2, counter = get_grad_gard2_count(a, loss)
+    print(grad, grad2, counter)
     var = compute_variance(grad, grad2, counter)
     assert var == expected_var
 
@@ -203,7 +207,7 @@ class TestND:
     def test_sum(self):
         a = Float([4.0, 5.0])
         dr.enable_grad(a)
-        loss = a + a
+        loss = (a + a) * a
         assert_backprop(a, loss, [2.0, 2.0], [2.0, 2.0], [2.0, 2.0])
         assert_variance(a, loss, [0.0, 0.0])
 
@@ -212,10 +216,13 @@ if __name__ == "__main__":
     t1d = Test1D()
     tnd = TestND()
     # t1d.test_basic()
-    t1d.test_linear()
-    t1d.test_sum()
+    # t1d.test_linear()
+    # t1d.test_sum()
     # t1d.test_linear_array()
-    t1d.test_linear_array_2()
-    t1d.test_linear_array_3()
-    t1d.test_product()
-    t1d.test_square()
+    # t1d.test_linear_array_2()
+    # t1d.test_linear_array_3()
+    # t1d.test_product()
+    # t1d.test_square()
+    # tnd.test_basic()
+    # tnd.test_linear()
+    tnd.test_sum()
