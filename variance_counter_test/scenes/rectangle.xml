@@ -1,0 +1,66 @@
+<scene version="3.0.0">
+    <default name="spp" value="1"/>
+    <default name="resx" value="2"/>
+    <default name="resy" value="2"/>
+        <default name="max_depth" value="6"/>
+
+    <integrator type="path">
+        <integer name="max_depth" value="$max_depth"/>
+    </integrator>
+
+    <sensor type="perspective" id="camera">
+        <string name="fov_axis" value="smaller" />
+        <float name="fov" value="22" />
+        <transform name="to_world">
+            <lookat target="0,0,0"
+                    origin="0,0,2"
+                    up="0,1,0" />
+        </transform>
+
+        <sampler type="independent">
+            <integer name="sample_count" value="$spp" />
+        </sampler>
+
+        <film type="hdrfilm" id="film">
+            <integer name="width" value="$resx" />
+            <integer name="height" value="$resy" />
+            <string name="pixel_format" value="rgb" />
+            <rfilter type="box" />
+        </film>
+    </sensor>
+
+
+    <texture type="checkerboard" id="color_checkerboard">
+        <rgb name="color0" value="1"/>
+        <rgb name="color1" value="0"/>
+        <transform name="to_uv">
+            <scale x="2" y="2" />
+        </transform>
+    </texture>
+
+    <bsdf type="diffuse" id="red">
+        <rgb name="reflectance" value="0.570068, 0.0430135, 0.0443706"/>
+    </bsdf>
+
+
+    <shape type="rectangle">
+        <bsdf type="diffuse">
+            <ref name="reflectance" id="color_checkerboard"/>
+        </bsdf>
+        <!-- <ref id= "red"/> -->
+    </shape>
+
+    <!-- <emitter type="point">
+        <point name="position" value="0.0, 0.0, 5.0"/>
+        <rgb name="intensity" value="100.0"/>
+    </emitter> -->
+    <!-- <emitter type="constant">
+        <rgb name="radiance" value="1.0"/>
+    </emitter> -->
+
+    <emitter type="directional">
+        <vector name="direction" value="0.0, 0.0, -2.0"/>
+        <rgb name="irradiance" value="5.0"/>
+    </emitter>
+
+</scene>
