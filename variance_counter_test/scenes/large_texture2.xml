@@ -1,0 +1,48 @@
+<scene version="3.0.0">
+    <default name="spp" value="128"/>
+    <default name="resx" value="128"/>
+    <default name="resy" value="128"/>
+        <default name="max_depth" value="6"/>
+
+    <integrator type="path">
+        <integer name="max_depth" value="$max_depth"/>
+    </integrator>
+
+    <sensor type="perspective" id="camera">
+        <string name="fov_axis" value="smaller" />
+        <float name="fov" value="22" />
+        <transform name="to_world">
+            <lookat target="0,0,0"
+                    origin="0,0,2"
+                    up="0,1,0" />
+        </transform>
+
+        <sampler type="independent">
+            <integer name="sample_count" value="$spp" />
+        </sampler>
+
+        <film type="hdrfilm" id="film">
+            <integer name="width" value="$resx" />
+            <integer name="height" value="$resy" />
+            <string name="pixel_format" value="rgb" />
+            <rfilter type="gaussian" />
+        </film>
+    </sensor>
+
+
+    <shape type="rectangle">
+        <bsdf type="diffuse">
+			<texture name="reflectance" type="bitmap">
+				<string name="filename" value="large_texture_test/stone.png" />
+				<string name="filter_type" value="nearest" />
+			</texture>
+		</bsdf>
+    </shape>
+
+
+    <emitter type="directional">
+        <vector name="direction" value="0.0, 0.0, -2.0"/>
+        <rgb name="irradiance" value="2.0"/>
+    </emitter>
+
+</scene>
