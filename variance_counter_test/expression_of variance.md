@@ -1,4 +1,4 @@
-$X=\sum_{i=1}^N g_i$ is the accumulation of gradients $g_i$ for $i=1,2,3, \ldots, N$, where $N$ is the total count of observations.
+$$X=\sum_{i=1}^N g_i$$ is the accumulation of gradients $g_i$ for $i=1,2,3, \ldots, N$, where $N$ is the total count of observations.
 Each $g_i$ is distributed according to the same random variable G and each realization is independent.
 
 Given $grad=\sum_{i=1}^N g_i$
