@@ -14,7 +14,6 @@ $$=\frac{1}{N}\left(\sum_{i=1}^N g_i^2+\sum_{i=1}^N \frac{\mathrm{grad}^2}{N^2}-
 $$=\frac{1}{N}\left(grad2 +\frac{grad^2}{N}-\frac{2}{N} grad^2\right) $$
 $$=\frac{1}{N}\left(grad2 -\frac{grad^2}{N}\right)$$
 
-\
 Therefore,
 $$Var(X)=Var\left(\sum_{i=1}^N G\right)=\sum_{i=1}^N Var(G)$$
 $$=grad2-\frac{grad^2}{N}$$
